@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="esp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NekoCuentas - Café Neko Maid Uwu Nya</title>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Index</a>
+        <a href="menu.html">Menu</a>
+        <a href="inicio_admin.html">Panel del NekoAdmin</a>
+        <a href="gestion_computadoras.html">Gestión de NekoComputadoras</a>
+        <a href="gestion_cuentas.html">Gestión de NekoCuentas</a>
+    </nav>
+    <h1>Gestion de las NekoCuentas</h1>
+    <p>Administra los perfiles de los clientes y el staff del cyber.</p>
+
+    <h2>NekoUsuarios Registrados</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>NekoUsuario</th>
+                <th>NekoRol</th>
+                <th>NekoEstado</th>
+                <th>NekoAcción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Ariel</td>
+                <td>NekoAdmin</td>
+                <td>Activo</td>
+                <td><button onclick="bloquearUsuario('Ariel')">Bloquear</button></td>
+            </tr>
+            <tr>
+                <td>Santiago</td>
+                <td>Cliente</td>
+                <td>Activo</td>
+                <td><button onclick="bloquearUsuario('Santiago')">Bloquear</button></td>
+            </tr>
+            <tr>
+                <td>Gabriel</td>
+                <td>Cliente</td>
+                <td>Suspendido</td>
+                <td><button>Desbloquear</button></td>
+            </tr>
+            <tr>
+                <td>Benjamín</td>
+                <td>Cliente</td>
+                <td>Activo</td>
+                <td><button onclick="bloquearUsuario('Benjamín')">Bloquear</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Crear Nueva NekoCuenta</h2>
+    <form onsubmit="crearCuenta(event)">
+        <label for="nombre">Nombre del NekoUsuario:</label>
+        <input type="text" id="nombre" placeholder="Ej: NekoUser99" required>
+        <br><br>
+        <label for="rol">NekoRol en el sistema:</label>
+        <select id="rol">
+            <option value="cliente">NekoCliente (Cyber)</option>
+            <option value="admin">NekoAdmin</option>
+        </select>
+        <br><br>
+        <label for="saldo">Saldo inicial (NekoHoras):</label>
+        <input type="number" id="saldo" placeholder="Ej: 2" required>
+        <br><br>
+        <button type="submit">Registrar NekoUsuario</button>
+    </form>
+    <script>
+        function bloquearUsuario(nombre) {
+            alert("¿Estás seguro de que deseas bloquear la NekoCuenta de " + nombre + "?");
+        }
+        function crearCuenta(evento) {
+            evento.preventDefault(); 
+            alert("NekoCuenta creada exitosamente en el frontend.");
+        }
+    </script>
+</body>
+</html>
