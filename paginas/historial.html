@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberCafeNeko:3 - Historial</title>
+    <link rel="stylesheet" href="../css/gestsesiones.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <h2 class="sidebar-titulo">CyberNetNeko:3</h2>
+            <nav>
+                <a href="inicioencargado.html">Inicio</a>
+                <a href="mapaequipos.html">Mapa de Equipos</a>
+                <a href="clientes.html">Gestión de Clientes</a>
+                <a href="sesion.html">Registro de Sesión</a>
+                <a href="historial.html" class="activo">Historial de Sesiones</a>
+            </nav>
+            <a href="login.html" class="cerrar-sesion">Cerrar sesión</a>
+        </aside>
+
+        <main class="contenido">
+            <h1>Historial de Sesiones</h1>
+
+            <div class="card">
+                <h2>Filtros</h2>
+                <div class="campo">
+                    <label>Fecha:</label>
+                    <input type="text" id="filtfech" placeholder="ej: 10/09/2026">
+                </div>
+                <div class="campo">
+                    <label>Computador:</label>
+                    <select id="filtcomp">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label>Cliente:</label>
+                    <select id="filtcl">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+                <button type="button" id="btnfilt">Filtrar</button>
+                <button type="button" id="btnlimp">Limpiar filtros</button>
+            </div>
+
+            <div class="card">
+                <h2>Sesiones registradas</h2>
+                <table id="tablahist">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Computador</th>
+                            <th>Fecha</th>
+                            <th>Hora inicio</th>
+                            <th>Hora fin</th>
+                            <th>Duración (min)</th>
+                            <th>Monto final</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script src="../js/historial.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberCafeNeko:3 - Gestión de Clientes</title>
+    <link rel="stylesheet" href="../css/gestsesiones.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <h2 class="sidebar-titulo">CyberNetNeko:3</h2>
+            <nav>
+                <a href="inicioencargado.html">Inicio</a>
+                <a href="mapaequipos.html">Mapa de Equipos</a>
+                <a href="clientes.html" class="activo">Gestión de Clientes</a>
+                <a href="sesion.html">Registro de Sesión</a>
+                <a href="historial.html">Historial de Sesiones</a>
+            </nav>
+            <a href="login.html" class="cerrar-sesion">Cerrar sesión</a>
+        </aside>
+
+        <main class="contenido">
+            <h1>Gestión de Clientes</h1>
+
+            <div class="card">
+                <h2>Buscar cliente por correo</h2>
+                <div class="campo">
+                    <input type="text" id="buscorreo" placeholder="ej: juan@correo.com">
+                </div>
+                <button type="button" id="btnbusc">Buscar</button>
+                <button type="button" id="btntodos">Mostrar todos</button>
+            </div>
+
+            <div class="card">
+                <h2>Registrar nuevo cliente</h2>
+                <form id="formcli">
+                    <div class="campo">
+                        <label>Nombre:</label>
+                        <input type="text" id="nomcli" required minlength="2">
+                    </div>
+                    <div class="campo">
+                        <label>Correo:</label>
+                        <input type="email" id="corcli" required>
+                    </div>
+                    <button type="submit">Registrar</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Clientes registrados</h2>
+                <table id="tablacli">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Generado con JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+      <script src="../js/clientes.js"></script>
+  </body>
+</html>

@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #490a3f;
+    min-height: 100vh;
+    display: flex;
+}
+
+
+.layout {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #1e293b;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+}
+
+.sidebar-titulo {
+    color: #ed13d7;
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.sidebar nav a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.sidebar nav a:hover, .sidebar nav a.activo {
+    background-color: #ed13d7;
+    font-weight: bold;
+}
+
+.cerrar-sesion {
+    margin-top: auto;
+    color: #dc2626;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.contenido {
+    flex-grow: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.contenido h1 {
+    color: #ffffff;
+    margin-bottom: 30px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+
+.card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin: 0 auto 25px auto;
+    max-width: 800px;
+}
+
+.card h2 {
+    color: #1e293b;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+.campo {
+    margin-bottom: 18px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #1e293b;
+}
+
+.campo input, .campo select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.campo input:focus, .campo select:focus {
+    outline: none;
+    border-color: #ed13d7;
+}
+
+
+button {
+    padding: 10px 15px;
+    background-color: #ed13d7;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+button:hover {
+    background-color: #770845;
+}
+
+/* --- Tablas --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #1e293b;
+    color: #ffffff;
+}
+
+td {
+    color: #333333;
+}
+
+pre {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    max-width: 400px;
+    margin: 10px auto 0 auto;
+    text-align: left;
+    color: #1e293b;
+    border: 1px dashed #ed13d7;
+}

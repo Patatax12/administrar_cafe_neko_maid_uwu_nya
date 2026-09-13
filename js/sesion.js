@@ -18,7 +18,6 @@ class Sesion{
         this.id=id;
         this.clienteid=clienteid;
         this.compid=compid;
-        this.horainiciomili=Date.now();
         this.horainicio=new Date().toLocaleTimeString();
         this.horafin=null;
         this.duracionmin=null;
@@ -62,9 +61,9 @@ class admcomp{
 class admclientes{
     constructor(){
         this.listclientes=[];
-        this.listclientes.push(new Cliente(1,"six sevenlando"));
-        this.listclientes.push(new Cliente(2,"tung tung "));
-        this.listclientes.push(new Cliente(3,"tralalero"));
+        this.listclientes.push(new Cliente(1,"Juan Perez"));
+        this.listclientes.push(new Cliente(2,"Ana Soto"));
+        this.listclientes.push(new Cliente(3,"Pedro Diaz"));
     }
 
     opc(){
@@ -151,13 +150,12 @@ function finalizarsesion(id){
     }
     if(sesion==null)return;
 
+  
+    let duracionmin=Number(prompt("Duracion de la sesion en minutos:","60"));
+    if(isNaN(duracionmin)||duracionmin<=0)duracionmin=60;
+
     let costoservicio=Number(prompt("Costo fijo por servicios (0 si no aplica):","0"));
     if(isNaN(costoservicio))costoservicio=0;
-
-    let ahora=Date.now();
-    let duracionmili=ahora-sesion.horainiciomili;
-    let duracionmin=Math.round(duracionmili/60000);
-    if(duracionmin<1)duracionmin=1;
 
     let montouso=(duracionmin/60)*sesion.preciohora;
     let montofinal=montouso+costoservicio;

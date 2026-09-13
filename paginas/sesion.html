@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberCafeNeko:3 - Registro de Sesión</title>
+   <link rel="stylesheet" href="../css/gestsesiones.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <h2 class="sidebar-titulo">CyberNetNeko:3</h2>
+            <nav>
+                <a href="inicioencargado.html">Inicio</a>
+                <a href="mapaequipos.html">Mapa de Equipos</a>
+                <a href="clientes.html">Gestión de Clientes</a>
+                <a href="sesion.html" class="activo">Registro de Sesión</a>
+                <a href="historial.html">Historial de Sesiones</a>
+            </nav>
+            <a href="login.html" class="cerrar-sesion">Cerrar sesión</a>
+        </aside>
+
+        <main class="contenido">
+            <h1>Registro y Cierre de Sesión</h1>
+
+            <div class="card">
+                <h2>Iniciar nueva sesión</h2>
+                <form id="formses">
+                    <div class="campo">
+                        <label>Cliente:</label>
+                        <select id="selcli" required></select>
+                    </div>
+                    <div class="campo">
+                        <label>Computador:</label>
+                        <select id="selcomp" required></select>
+                    </div>
+                    <button type="submit" style="width: 100%;">Iniciar sesión</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Sesiones activas</h2>
+                <table id="tablact">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Computador</th>
+                            <th>Hora inicio</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="card" id="cardbol">
+                <h2 id="titbol" style="display:none;">Boleta</h2>
+                <pre id="bol" style="display:none;"></pre>
+            </div>
+        </main>
+    </div>
+    <script src="../js/sesion.js"></script>
+</body>
+</html>
