@@ -1,5 +1,5 @@
-# administrar_cafe_neko_maid_uwu_nya
-el increible administrador de fakin cafe
+//when eres el readme. porfavor amigo leeme
 
+//but nadie te pesca porque apenas vamos en segundo año de la carrera
 
-parece que funciona //patatax
+//ohh rayos
