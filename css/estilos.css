@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #490a3f;
+    min-height: 100vh;
+    display: flex;
+
+}
+
+.login-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 350px;
+}
+
+.login-container h1 {
+    color: #1e293b;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.login-container p {
+    color: #555555;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.campo {
+    margin-bottom: 18px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #1e293b;
+}
+
+.campo input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.campo input:focus {
+    outline: none;
+    border-color: #ed13d7;
+}
+
+.mensaje-error {
+    color: #dc2626;
+    font-size: 13px;
+    margin-bottom: 10px;
+    min-height: 16px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #ed13d7;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #770845;
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        margin: 20px;
+        padding: 25px;
+    }
+}
+
+/* El max-with: 480px se supone por lo que vi en youtube, se adapta al formato de la pantalla, onda Celu y Pc
+creo que se puede testear moviendo la ventana diagonal en la pagina */

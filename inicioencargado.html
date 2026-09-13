@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberCafeNeko:3 - Inicio</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/panel.css">
+    <script src="js/inicioencargado.js" defer></script>
+</head>
+<body>
+     <div class="layout">
+        <aside class="sidebar">
+            <h2 class="sidebar-titulo">CyberCaféNeko :3</h2>
+            <nav>
+                <a href="inicioencargado.html" class="activo">Inicio</a>
+                <a href="mapaequipos.html">Mapa de Equipos</a>
+                <a href="#">Gestión de Clientes</a>
+                <a href="#">Registro de Sesión</a>
+                <a href="#">Historial de Sesiones</a>
+            </nav>
+            <a href="login.html" class="cerrar-sesion">Cerrar sesión</a>
+        </aside>
+
+        <main class="contenido">
+            <h1>Inicio</h1>
+
+            <div class="tarjetas-resumen">
+                <div class="tarjeta">
+                    <p class="tarjeta-etiqueta">Total recaudado hoy</p>
+                    <p class="tarjeta-valor" id="total-recaudado">$0</p>
+                </div>
+                <div class="tarjeta">
+                    <p class="tarjeta-etiqueta">Computadores disponibles</p>
+                    <p class="tarjeta-valor" id="equipos-disponibles">0</p>
+                </div>
+                <div class="tarjeta">
+                    <p class="tarjeta-etiqueta">Sesiones activas</p>
+                    <p class="tarjeta-valor" id="cantidad-sesiones">0</p>
+                </div>
+            </div>
+
+            <h2>Sesiones activas</h2>
+            <table class="tabla-sesiones">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Computador</th>
+                        <th>Hora de inicio</th>
+                        <th>Tiempo transcurrido</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo-tabla-sesiones">
+                </tbody>
+            </table>
+        </main>
+    </div>
+    
+</body>
+</html>
