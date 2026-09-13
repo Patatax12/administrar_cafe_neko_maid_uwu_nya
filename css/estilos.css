@@ -5,12 +5,11 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     background-color: #490a3f;
     min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
+
 }
 
 .login-container {

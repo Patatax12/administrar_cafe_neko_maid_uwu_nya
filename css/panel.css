@@ -1,0 +1,216 @@
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: #581d82;
+    color: white;
+    padding: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.sidebar-titulo {
+    margin-bottom: 30px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-grow: 1;
+}
+
+.sidebar nav a {
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+}
+
+.sidebar nav a:hover {
+    background-color: #461349;
+}
+
+.sidebar nav a.activo {
+    background-color: #be2899;
+    color: white;
+    font-weight: bold;
+}
+
+.cerrar-sesion {
+    color: #f87171;
+    text-decoration: none;
+    padding: 10px 12px;
+}
+
+.contenido {
+    flex-grow: 1;
+    padding: 30px 40px;
+    background-color: #b5b5b9;
+    color: #a00e88;
+}
+
+.contenido h1 {
+    margin-bottom: 20px;
+}
+
+.contenido h2 {
+    margin: 25px 0 12px;
+}
+
+.tarjetas-resumen {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.tarjeta {
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.tarjeta-etiqueta {
+    font-size: 13px;
+    color: #c86ce2;
+    margin-bottom: 8px;
+}
+
+.tarjeta-valor {
+    font-size: 26px;
+    font-weight: bold;
+    color: #d549e2;
+}
+
+.tabla-sesiones {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tabla-sesiones th,
+.tabla-sesiones td {
+    text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tabla-sesiones th {
+    background-color: #e2e8f0;
+    font-size: 13px;
+}
+
+.boton-finalizar {
+    background-color: #0da6e7;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.boton-finalizar:hover {
+    background-color: #b91c1c;
+}
+
+
+/*----------------------------------------- Lo de arriba es lo del Inicio como encargado por si quieren cambiarle los colores
+asi que lo que hagan de aqui para abajo les va a cambiar la siguiente parte que es el mapa de los equipos*/
+
+
+@media (max-width: 700px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .tarjetas-resumen {
+        grid-template-columns: 1fr;
+    }
+
+    .tabla-sesiones {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+.grilla-equipos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.tarjeta-equipo {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    cursor: default;
+}
+
+.tarjeta-equipo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tarjeta-equipo-codigo {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.tarjeta-equipo-nombre {
+    margin-bottom: 4px;
+}
+
+.tarjeta-equipo-ubicacion {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.indicador-estado {
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 20px;
+    color: white;
+}
+
+.estado-disponible {
+    background-color: #16a34a;
+}
+
+.estado-ocupado {
+    background-color: #dc2626;
+}
+
+.estado-reservado {
+    background-color: #d97706;
+}
+
+.estado-fuera-de-servicio {
+    background-color: #64748b;
+}
+
+.tarjeta-equipo:has(.estado-disponible),
+.tarjeta-equipo:has(.estado-ocupado) {
+    cursor: pointer;
+}
+
+.tarjeta-equipo:has(.estado-disponible):hover,
+.tarjeta-equipo:has(.estado-ocupado):hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
