@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="esp">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro y Cierre de Sesion</title>
+  <link rel="stylesheet" href="../css/gestion-sesiones.css">
+</head>
+<body>
+  <h1>Registro y Cierre de Sesion</h1>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="clientes.html">Clientes</a>
+    <a href="historial.html">Historial</a>
+  </nav>
+
+  <div class="card">
+    <h2>Iniciar nueva sesion</h2>
+    <form id="formses">
+      <label>Cliente:</label>
+      <select id="selcli" required></select>
+
+      <label>Computador:</label>
+      <select id="selcomp" required></select>
+
+      <button type="submit">Iniciar sesion</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Sesiones activas</h2>
+    <table id="tablact" border="1">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Computador</th>
+          <th>Hora inicio</th>
+          <th>Accion</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="card" id="cardbol">
+    <h2 id="titbol" style="display:none;">Boleta</h2>
+    <pre id="bol" style="display:none;"></pre>
+  </div>
+
+  <script src="../js/sesion.js"></script>
+</body>
+</html>
