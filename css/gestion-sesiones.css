@@ -1,0 +1,85 @@
+
+body{
+    background-color:#b7b7b7;
+    font-family:Georgia, serif;
+    margin:0;
+    padding:40px;
+}
+
+h1{
+    color:#a5177e;
+    text-align:center;
+}
+
+h2{
+    color:#a5177e;
+    text-align:center;
+}
+
+nav{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+nav a{
+    color:#a5177e;
+    margin:0 10px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.card{
+    background-color:#ffffff;
+    border-radius:10px;
+    padding:20px;
+    margin:0 auto 20px auto;
+    max-width:600px;
+    text-align:center;
+    box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+
+table{
+    margin:10px auto 0 auto;
+    border-collapse:collapse;
+    width:100%;
+}
+
+th{
+    background-color:#f0e6f0;
+    color:#a5177e;
+    padding:8px;
+}
+
+td{
+    padding:8px;
+    text-align:center;
+}
+
+button{
+    background-color:#a5177e;
+    color:white;
+    border:none;
+    padding:8px 16px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background-color:#7d1260;
+}
+
+input, select{
+    padding:6px;
+    margin:5px;
+    border-radius:5px;
+    border:1px solid #ccc;
+}
+
+pre{
+    background-color:#f0e6f0;
+    padding:15px;
+    border-radius:5px;
+    max-width:400px;
+    margin:10px auto 0 auto;
+    text-align:left;
+}
