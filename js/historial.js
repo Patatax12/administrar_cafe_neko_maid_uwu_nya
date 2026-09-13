@@ -25,9 +25,9 @@ class Sesion{
 }
 
 let listaclientes=[];
-listaclientes.push(new Cliente(1,"Juan Perez"));
-listaclientes.push(new Cliente(2,"Ana Soto"));
-listaclientes.push(new Cliente(3,"Pedro Diaz"));
+listaclientes.push(new Cliente(1,"tung tung perez"));
+listaclientes.push(new Cliente(2,"tralalero trala six seven"));
+listaclientes.push(new Cliente(3,"felipe akermanzzz (el cacas)"));
 
 let listacomp=[];
 listacomp.push(new Computador(1,"pc_1"));

@@ -61,9 +61,9 @@ class admcomp{
 class admclientes{
     constructor(){
         this.listclientes=[];
-        this.listclientes.push(new Cliente(1,"Juan Perez"));
-        this.listclientes.push(new Cliente(2,"Ana Soto"));
-        this.listclientes.push(new Cliente(3,"Pedro Diaz"));
+        this.listclientes.push(new Cliente(1,"six even"));
+        this.listclientes.push(new Cliente(2,"freddy fazbear"));
+        this.listclientes.push(new Cliente(3,"jhon zenin"));
     }
 
     opc(){
