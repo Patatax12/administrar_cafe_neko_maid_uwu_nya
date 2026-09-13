@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio Deidad admin - Café Neko Maid Uwu Nya</title>
+    <style>
+        body { background-color: #121212; color: #ffffff; font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        nav { background-color: #1e1e1e; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333; display: flex; gap: 20px; flex-wrap: wrap; }
+        nav a { color: #ff80bf; text-decoration: none; font-weight: bold; }
+        nav a:hover { text-decoration: underline; }
+        .panel-resumen { display: flex; gap: 20px; text-align: center; margin-top: 20px; }
+        .tarjeta { background-color: #2a2a2a; padding: 20px; border-radius: 8px; flex: 1; border: 1px solid #444; }
+        .tarjeta h2 { margin: 0; color: #ff80bf; font-size: 2.5em; }
+        .tarjeta p { margin: 5px 0 0; color: #ccc; }
+    </style>
 </head>
 <body>
     <nav>
@@ -16,13 +26,22 @@
     <h1>Panel del NekoAdministrador</h1>
     <p>Bienvenido al papusistema (menú superior para administrar los recursos del café)</p>
     <div class="panel-resumen">
-    <h2>Resumen del Sistema (Datos Simulados)</h2>
-        <ul>
-            <li><strong>Nekoequipos Disponibles:</strong> 1</li>
-            <li><strong>Nekoequipos en Mantenimiento:</strong> 0</li>
-            <li><strong>Nekocuentas Registradas:</strong> 4</li>
-            <li><strong>Nekoestado del Servidor:</strong> En línea</li>
-        </ul>
+        <div class="tarjeta">
+            <h2>1</h2>
+            <p>Nekoequipos Disponibles</p>
+        </div>
+        <div class="tarjeta">
+            <h2>0</h2>
+            <p>En Mantenimiento</p>
+        </div>
+        <div class="tarjeta">
+            <h2>3</h2>
+            <p>Nekocuentas Registradas</p>
+        </div>
+        <div class="tarjeta">
+            <h2 style="color: #69f0ae;">Online</h2>
+            <p>Nekoestado del Servidor</p>
+        </div>
     </div>
 </body>
 </html>
