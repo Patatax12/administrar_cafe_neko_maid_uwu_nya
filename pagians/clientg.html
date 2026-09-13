@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="esp">
+<head>
+    <title>Registro de Sesión</title>
+</head>
+<body>
+    <h2>Iniciar Nueva Sesión</h2>
+    
+    <form id="formulario-sesion">
+        <label>Cliente:</label>
+        <label id="cliente">
+            <input
+            type="text"
+            id="cliente"
+            name="name"
+            required
+            minlength="4"
+            maxlength="8"
+            size="10"/>
+
+        </label>
+        <label>email:</label>
+        <label id="correo">
+            <input
+            type="email"
+            id="correo"
+            name="name"
+            required
+            size="10"/>
+        </label>
+        <br><br>
+
+        <label>Computador:</label>
+        <select id="select-computador">
+            
+        </select>
+        <br><br>
+
+        <button type="button" id="btn-iniciar">Registrar sesion</button>
+    </form>
+    <script src="../js/gclient.js"></script>
+</body>
+</html>
