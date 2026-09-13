@@ -1,5 +1,6 @@
-//when eres el readme. porfavor amigo leeme
+aqui esta el codigo, algunas vainas funcionan, otras no tanto. no nos calentamos la cabeza con muchas cosas
 
-//but nadie te pesca porque apenas vamos en segundo año de la carrera
+lo simple fue echo, lo complicado no.
 
-//ohh rayos
+
+67 67 67
