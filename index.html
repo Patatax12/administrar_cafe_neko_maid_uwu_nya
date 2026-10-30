@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="css/panel.css">
     <script src="js/inicioencargado.js" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
 </head>
 <body>
      <div class="layout">
@@ -23,21 +24,21 @@
             <a href="paginas/login.html" class="cerrar-sesion">Cerrar sesión</a>
         </aside>
 
-        <main class="contenido">
+        <main class="contenido" x-data="inicio">
             <h1>Inicio</h1>
 
             <div class="tarjetas-resumen">
                 <div class="tarjeta">
                     <p class="tarjeta-etiqueta">Total recaudado hoy</p>
-                    <p class="tarjeta-valor" id="total-recaudado">$0</p>
+                    <p class="tarjeta-valor" x-text="'$' + totalRecaudado.toLocaleString('es-CL')"></p>
                 </div>
                 <div class="tarjeta">
                     <p class="tarjeta-etiqueta">Computadores disponibles</p>
-                    <p class="tarjeta-valor" id="equipos-disponibles">0</p>
+                    <p class="tarjeta-valor" x-text="disponibles()"></p>
                 </div>
                 <div class="tarjeta">
                     <p class="tarjeta-etiqueta">Sesiones activas</p>
-                    <p class="tarjeta-valor" id="cantidad-sesiones">0</p>
+                    <p class="tarjeta-valor" x-text="sesiones.length"></p>
                 </div>
             </div>
 
@@ -45,14 +46,23 @@
             <table class="tabla-sesiones">
                 <thead>
                     <tr>
-                        <th>Cliente</th>
-                        <th>Computador</th>
-                        <th>Hora de inicio</th>
+                        <th @click="ordenar('cliente')" style="cursor:pointer">Cliente</th>
+                        <th @click="ordenar('computador')" style="cursor:pointer">Computador</th>
+                        <th @click="ordenar('horaInicio')" style="cursor:pointer">Hora de inicio</th>
                         <th>Tiempo transcurrido</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
-                <tbody id="cuerpo-tabla-sesiones">
+                <tbody>
+                    <template x-for="s in sesiones" :key="s.computador">
+                        <tr>
+                            <td x-text="s.cliente"></td>
+                            <td x-text="s.computador"></td>
+                            <td x-text="s.horaInicio"></td>
+                            <td x-text="minutos(s) + ' min'"></td>
+                            <td><button class="boton-finalizar" @click="finalizar(s)">Finalizar</button></td>
+                        </tr>
+                    </template>
                 </tbody>
             </table>
         </main>
