@@ -1,30 +1,93 @@
 <!DOCTYPE html>
 <html lang="esp">
 <head>
+    <link rel="manifest" href="../manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio Deidad admin - Café Neko Maid Uwu Nya</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
-        body { background-color: #121212; color: #ffffff; font-family: Arial, sans-serif; margin: 0; padding: 20px; }
-        nav { background-color: #1e1e1e; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333; display: flex; gap: 20px; flex-wrap: wrap; }
-        nav a { color: #ff80bf; text-decoration: none; font-weight: bold; }
-        nav a:hover { text-decoration: underline; }
-        .panel-resumen { display: flex; gap: 20px; text-align: center; margin-top: 20px; }
-        .tarjeta { background-color: #2a2a2a; padding: 20px; border-radius: 8px; flex: 1; border: 1px solid #444; }
-        .tarjeta h2 { margin: 0; color: #ff80bf; font-size: 2.5em; }
-        .tarjeta p { margin: 5px 0 0; color: #ccc; }
+        :root {
+            --bg-dark: #121212;
+            --panel-bg: #1e1e1e;
+            --neon-pink: #ff80bf;
+            --neon-green: #69f0ae;
+            --danger-red: #ff5252;
+            --border-color: #333;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        nav {
+            background-color: var(--panel-bg);
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 15px rgba(255, 128, 191, 0.1);
+        }
+        nav a {
+            color: var(--neon-pink);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px var(--neon-pink);
+        }
+        h1 { color: var(--neon-pink); margin-top: 0; }
+        p.subtitle { color: #aaa; margin-bottom: 25px; }
+        .panel-resumen {
+            display: flex;
+            gap: 25px;
+            text-align: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .tarjeta {
+            background-color: var(--panel-bg);
+            padding: 30px 20px;
+            border-radius: 12px;
+            flex: 1;
+            min-width: 200px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tarjeta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 128, 191, 0.15);
+        }
+        .tarjeta h2 {
+            margin: 0;
+            color: var(--neon-pink);
+            font-size: 2.8em;
+        }
+        .tarjeta p {
+            margin: 10px 0 0;
+            color: #ccc;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
     <nav>
-        
         <a href="inicio_admin.html">Panel del NekoAdmin</a>
         <a href="gestion_computadoras.html">Gestión de NekoComputadoras</a>
         <a href="gestion_cuentas.html">Gestión de NekoCuentas</a>
         <a href="../index.html">Neko volver UnU</a>
     </nav>
     <h1>Panel del NekoAdministrador</h1>
-    <p>Bienvenido al papusistema (menú superior para administrar los recursos del café)</p>
+    <p class="subtitle">Bienvenido al papusistema (menú superior para administrar los recursos del café)</p>
     <div class="panel-resumen">
         <div class="tarjeta">
             <h2>1</h2>
@@ -39,9 +102,16 @@
             <p>Nekocuentas Registradas</p>
         </div>
         <div class="tarjeta">
-            <h2 style="color: #69f0ae;">Online</h2>
+            <h2 style="color: var(--neon-green);">Online</h2>
             <p>Nekoestado del Servidor</p>
         </div>
     </div>
+    <script>
+    if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+    navigator.serviceWorker.register('../sw.js');
+    });
+    }
+</script>
 </body>
 </html>
