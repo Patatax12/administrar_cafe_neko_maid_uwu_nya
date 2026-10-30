@@ -1,12 +1,14 @@
-
 const computadores = [
     { codigo: "PC-01", nombre: "Estación 1", ubicacion: "Pasillo 1", estado: "ocupado" },
-    { codigo: "PC-02", nombre: "Estación 2", ubicacion: "Pasillo 2", estado: "disponible" },
-    { codigo: "PC-03", nombre: "Estación 3", ubicacion: "Pasillo 1", estado: "disponible" },
+    { codigo: "PC-02", nombre: "Estación 2", ubicacion: "Pasillo 2", estado: "ocupado" },
+    { codigo: "PC-03", nombre: "Estación 3", ubicacion: "Pasillo 1", estado: "ocupado" },
     { codigo: "PC-04", nombre: "Estación 4", ubicacion: "Pasillo 1 Piso 2", estado: "ocupado" },
-    { codigo: "PC-05", nombre: "Estación 5", ubicacion: "Pasillo 2 Piso 2", estado: "reservado" },
-    { codigo: "PC-06", nombre: "Estación 6", ubicacion: "Escondite del Papu", estado: "fuera de servicio" },
+    { codigo: "PC-05", nombre: "Estación 5", ubicacion: "Pasillo 2 Piso 2", estado: "fuera de servicio" },
+    { codigo: "PC-06", nombre: "Estación 6", ubicacion: "Escondite del Papu", estado: "reservado" },
+    { codigo: "PC-07", nombre: "Estación 7", ubicacion: "El otro escondite del papu", estado: "disponible" },
 ];
+
+const clientes = ["DON DANNY", "OYE YA PO ARIEL", "Ola Keki", "Felipe CACARMAN", "asi no era we :v"];
 
 function textoEstado(estado) {
     const textos = {
@@ -22,35 +24,43 @@ function claseEstado(estado) {
     return `estado-${estado.replace(/\s+/g, "-")}`;
 }
 
-function mostrarComputadores() {
-    const grilla = document.getElementById("grilla-equipos");
-    grilla.innerHTML = "";
+document.addEventListener('alpine:init', () => {
+    Alpine.data('mapa', () => ({
+        computadores: computadores,
+        clientes: clientes,
+        filtro: '',
+        equipoElegido: null,
+        clienteElegido: '',
+        error: '',
 
-    computadores.forEach(pc => {
-        const tarjeta = document.createElement("div");
-        tarjeta.className = "tarjeta-equipo";
+        visibles() {
+            if (this.filtro === '') return this.computadores;
+            return this.computadores.filter(pc => pc.estado === this.filtro);
+        },
 
-        tarjeta.innerHTML = `
-            <div class="tarjeta-equipo-header">
-                <span class="tarjeta-equipo-codigo">${pc.codigo}</span>
-                <span class="indicador-estado ${claseEstado(pc.estado)}">${textoEstado(pc.estado)}</span>
-            </div>
-            <p class="tarjeta-equipo-nombre">${pc.nombre}</p>
-            <p class="tarjeta-equipo-ubicacion"> ${pc.ubicacion}</p>
-        `;
+        clickEquipo(pc) {
+            if (pc.estado === 'disponible') {
+                this.equipoElegido = pc;
+                this.clienteElegido = '';
+                this.error = '';
+            } else if (pc.estado === 'ocupado') {
+                if (confirm('¿Finalizar la sesión de ' + pc.codigo + '?')) {
+                    pc.estado = 'disponible';
+                }
+            }
+        },
 
-        if (pc.estado === "disponible") {
-            tarjeta.addEventListener("click", () => {
-                alert(`Iniciar sesión en ${pc.codigo} (funcionalidad real pendiente para otra entrega)`);
-            });
-        } else if (pc.estado === "ocupado") {
-            tarjeta.addEventListener("click", () => {
-                alert(`Finalizar sesión de ${pc.codigo} (funcionalidad real pendiente para otra entrega)`);
-            });
+        iniciarSesion() {
+            if (this.clienteElegido === '') {
+                this.error = 'Elige un cliente para iniciar la sesión.';
+                return;
+            }
+            this.equipoElegido.estado = 'ocupado';
+            this.equipoElegido = null;
+        },
+
+        cancelar() {
+            this.equipoElegido = null;
         }
-
-        grilla.appendChild(tarjeta);
-    });
-}
-
-mostrarComputadores();
+    }));
+});

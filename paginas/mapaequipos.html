@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/panel.css">
     <script src="../js/mapaequipos.js" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
 </head>
 <body>
     <div class="layout">
         <aside class="sidebar">
-            <h2 class="sidebar-titulo">CyberNetNeko:3</h2>
+            <h2 class="sidebar-titulo">CyberCafeNeko:3</h2>
             <nav>
                 <a href="../index.html">Inicio</a>
                 <a href="mapaequipos.html" class="activo">Mapa de Equipos</a>
@@ -23,12 +24,37 @@
             <a href="login.html" class="cerrar-sesion">Cerrar sesión</a>
         </aside>
 
-        <main class="contenido">
+        <main class="contenido" x-data="mapa">
             <h1>Mapa de Equipos</h1>
 
-            <div class="grilla-equipos" id="grilla-equipos">
-            </div>
-        </main>
-    </div>
-</body>
-</html>
+            <button @click="filtro = ''">Todos</button>
+            <button @click="filtro = 'disponible'">Disponible</button>
+            <button @click="filtro = 'ocupado'">Ocupado</button>
+            <button @click="filtro = 'reservado'">Reservado</button>
+            <button @click="filtro = 'fuera de servicio'">Fuera de servicio</button>
+
+            <template x-if="equipoElegido">
+                <div>
+                    <p>Iniciar sesión en <span x-text="equipoElegido.codigo"></span></p>
+                    <select x-model="clienteElegido">
+                        <option value="">Elige un cliente</option>
+                        <template x-for="c in clientes">
+                            <option x-text="c"></option>
+                        </template>
+                    </select>
+                    <p x-text="error"></p>
+                    <button @click="iniciarSesion()">Iniciar</button>
+                    <button @click="cancelar()">Cancelar</button>
+                </div>
+            </template>
+
+            <div class="grilla-equipos">
+                <template x-for="pc in visibles()">
+                    <div class="tarjeta-equipo" @click="clickEquipo(pc)">
+                        <div class="tarjeta-equipo-header">
+                            <span class="tarjeta-equipo-codigo" x-text="pc.codigo"></span>
+                            <span class="indicador-estado" :class="claseEstado(pc.estado)" x-text="textoEstado(pc.estado)"></span>
+                        </div>
+                        <p class="tarjeta-equipo-nombre" x-text="pc.nombre"></p>
+                        <p class="tarjeta-equipo-ubicacion" x-text="pc.ubicacion"></p>
+                    </div>
