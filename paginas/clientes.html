@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/panel.css">
     <link rel="stylesheet" href="../css/gestsesiones.css">
+    <script defer src="../js/clientes.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
 </head>
+
+
+
 <body>
     <div class="layout">
         <aside class="sidebar">
@@ -23,28 +28,26 @@
             <a href="login.html" class="cerrar-sesion">Cerrar sesión</a>
         </aside>
 
-        <main class="contenido">
+        <main class="contenido" x-data="clientesApp">
             <h1>Gestión de Clientes</h1>
 
             <div class="card">
-                <h2>Buscar cliente por correo</h2>
+                <h2>Buscar cliente por nombre</h2>
                 <div class="campo">
-                    <input type="text" id="buscorreo" placeholder="ej: juan@correo.com">
+                    <input type="text" x-model="busqueda" placeholder="ej: juan carlos bodoque">
                 </div>
-                <button type="button" id="btnbusc">Buscar</button>
-                <button type="button" id="btntodos">Mostrar todos</button>
             </div>
 
             <div class="card">
                 <h2>Registrar nuevo cliente</h2>
-                <form id="formcli">
+                <form @submit.prevent="registrar()">
                     <div class="campo">
                         <label>Nombre:</label>
-                        <input type="text" id="nomcli">
+                        <input type="text" x-model="nombre" required>
                     </div>
                     <div class="campo">
                         <label>Correo:</label>
-                        <input type="email" id="corcli" required>
+                        <input type="email" x-model="correo" required>
                     </div>
                     <button type="submit">Registrar</button>
                 </form>
@@ -62,12 +65,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                  
+                        <template x-for="c in admin.buscar(busqueda)" :key="c.id">
+                            <tr>
+                                <td x-text="c.id"></td>
+                                <td x-text="c.nombre"></td>
+                                <td x-text="c.correo"></td>
+                                <td>
+                                    <button type="button" @click="editar(c)">Editar</button>
+                                </td>
+                            </tr>
+                        </template>
                     </tbody>
-                </table>
+                </table>                
             </div>
         </main>
     </div>
-      <script src="../js/clientes.js"></script>
   </body>
 </html>

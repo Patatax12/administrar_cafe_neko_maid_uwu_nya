@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberCafeNeko:3 - Registro de Sesión</title>
-   <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/panel.css">
     <link rel="stylesheet" href="../css/gestsesiones.css">
+    <script defer src="../js/sesion.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
 </head>
 <body>
     <div class="layout">
@@ -23,27 +25,38 @@
             <a href="login.html" class="cerrar-sesion">Cerrar sesión</a>
         </aside>
 
-        <main class="contenido">
+        <main class="contenido" x-data="sesionApp">
             <h1>Registro y Cierre de Sesión</h1>
 
             <div class="card">
                 <h2>Iniciar nueva sesión</h2>
-                <form id="formses">
+                <form @submit.prevent="iniciarsesion()">
                     <div class="campo">
                         <label>Cliente:</label>
-                        <select id="selcli" required></select>
+                        <select x-model="clienteElegido">
+                            <option value="">Selecciona un cliente</option>
+                            <template x-for="c in listaclientes.listclientes" :key="c.id">
+                                <option :value="c.id" x-text="c.nombre"></option>
+                            </template>
+                        </select>
                     </div>
                     <div class="campo">
                         <label>Computador:</label>
-                        <select id="selcomp" required></select>
+                        <select x-model="compElegido">
+                            <option value="">Selecciona un computador</option>
+                            <template x-for="pc in listacomp.disponibles()" :key="pc.id">
+                                <option :value="pc.id" x-text="'pc_' + pc.id"></option>
+                            </template>
+                        </select>
                     </div>
-                    <button type="submit" style="width: 100%;">Iniciar sesión</button>
+                    <p class="mensaje-error" x-text="error"></p>
+                    <button type="submit">Iniciar sesión</button>
                 </form>
             </div>
 
             <div class="card">
                 <h2>Sesiones activas</h2>
-                <table id="tablact">
+                <table>
                     <thead>
                         <tr>
                             <th>Cliente</th>
@@ -52,16 +65,26 @@
                             <th>Acción</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <template x-for="s in activas()" :key="s.id">
+                            <tr>
+                                <td x-text="nombreCliente(s.clienteid)"></td>
+                                <td x-text="'pc_' + s.compid"></td>
+                                <td x-text="s.horainicio"></td>
+                                <td>
+                                    <button type="button" @click="finalizarsesion(s)">Finalizar</button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
                 </table>
             </div>
 
-            <div class="card" id="cardbol">
-                <h2 id="titbol" style="display:none;">Boleta</h2>
-                <pre id="bol" style="display:none;"></pre>
+            <div class="card" x-show="boletaTexto">
+                <h2>Boleta</h2>
+                <pre x-text="boletaTexto"></pre>
             </div>
         </main>
     </div>
-    <script src="../js/sesion.js"></script>
 </body>
 </html>
