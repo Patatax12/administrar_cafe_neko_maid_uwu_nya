@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberCafeNeko:3 - Historial</title>
-    <link rel="stylesheet" href="../css/gestsesiones.css">
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/panel.css">
-
+    <link rel="stylesheet" href="../css/gestsesiones.css">
+    <script defer src="../js/historial.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
 </head>
 <body>
     <div class="layout">
@@ -24,50 +25,67 @@
             <a href="login.html" class="cerrar-sesion">Cerrar sesión</a>
         </aside>
 
-        <main class="contenido">
+        <main class="contenido" x-data="historialApp">
             <h1>Historial de Sesiones</h1>
 
             <div class="card">
                 <h2>Filtros</h2>
                 <div class="campo">
                     <label>Fecha:</label>
-                    <input type="text" id="filtfech" placeholder="ej: 10/09/2026">
+                    <input type="date" x-model="filtFecha">
                 </div>
                 <div class="campo">
                     <label>Computador:</label>
-                    <select id="filtcomp">
+                    <select x-model="filtComp">
                         <option value="">Todos</option>
+                        <template x-for="pc in listacomp" :key="pc.id">
+                            <option :value="pc.id" x-text="pc.nombre"></option>
+                        </template>
                     </select>
                 </div>
                 <div class="campo">
                     <label>Cliente:</label>
-                    <select id="filtcl">
+                    <select x-model="filtCliente">
                         <option value="">Todos</option>
+                        <template x-for="c in listaclientes" :key="c.id">
+                            <option :value="c.id" x-text="c.nombre"></option>
+                        </template>
                     </select>
                 </div>
-                <button type="button" id="btnfilt">Filtrar</button>
-                <button type="button" id="btnlimp">Limpiar filtros</button>
+                <button type="button" @click="limpiar()">Limpiar filtros</button>
             </div>
 
             <div class="card">
                 <h2>Sesiones registradas</h2>
-                <table id="tablahist">
+                <table>
                     <thead>
                         <tr>
-                            <th>Cliente</th>
-                            <th>Computador</th>
-                            <th>Fecha</th>
-                            <th>Hora inicio</th>
+                            <th @click="ordenarPor('cliente')" style="cursor:pointer" x-text="'Cliente' + flecha('cliente')"></th>
+                            <th @click="ordenarPor('computador')" style="cursor:pointer" x-text="'Computador' + flecha('computador')"></th>
+                            <th @click="ordenarPor('fecha')" style="cursor:pointer" x-text="'Fecha' + flecha('fecha')"></th>
+                            <th @click="ordenarPor('horainicio')" style="cursor:pointer" x-text="'Hora inicio' + flecha('horainicio')"></th>
                             <th>Hora fin</th>
-                            <th>Duración (min)</th>
-                            <th>Monto final</th>
+                            <th @click="ordenarPor('duracionmin')" style="cursor:pointer" x-text="'Duración (min)' + flecha('duracionmin')"></th>
+                            <th @click="ordenarPor('montofinal')" style="cursor:pointer" x-text="'Monto final' + flecha('montofinal')"></th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <template x-for="(s, i) in filtradas()" :key="i">
+                            <tr>
+                                <td x-text="nombreCliente(s.clienteid)"></td>
+                                <td x-text="nombreComp(s.compid)"></td>
+                                <td x-text="s.fecha"></td>
+                                <td x-text="s.horainicio"></td>
+                                <td x-text="s.horafin"></td>
+                                <td x-text="s.duracionmin"></td>
+                                <td x-text="'$' + s.montofinal"></td>
+                            </tr>
+                        </template>
+                    </tbody>
                 </table>
+                <p x-show="filtradas().length == 0">No hay sesiones que coincidan con los filtros.</p>
             </div>
         </main>
     </div>
-    <script src="../js/historial.js"></script>
 </body>
 </html>

@@ -104,11 +104,11 @@ document.addEventListener('alpine:init', () => {
         iniciarsesion() {
             this.error = '';
 
-            if (this.clienteElegido === '') {
-                this.error = 'Debes seleccionar un cliente.';
+            if (this.clienteElegido==='') {
+                this.error='Debes seleccionar un cliente.';
                 return;
             }
-            if (this.compElegido === '') {
+            if (this.compElegido==='') {
                 this.error = 'Debes seleccionar un computador.';
                 return;
             }
@@ -119,7 +119,7 @@ document.addEventListener('alpine:init', () => {
                 return;
             }
 
-            let nueva = new Sesion(
+            let nueva=new Sesion(
                 this.siguienteidsesion,
                 Number(this.clienteElegido),
                 comp.id,
@@ -146,9 +146,9 @@ document.addEventListener('alpine:init', () => {
                 return;
             }
 
-            let servicios = prompt("Costo fijo por servicios (0 si no aplica):", "0");
-            if (servicios == null) return;
-            servicios = Number(servicios);
+            let servicios=prompt("Costo fijo por servicios (0 si no aplica):", "0");
+            if (servicios==null) return;
+            servicios=Number(servicios);
             if (isNaN(servicios) || servicios < 0) {
                 this.error = 'El costo de servicios debe ser un número desde 0.';
                 return;
@@ -161,8 +161,8 @@ document.addEventListener('alpine:init', () => {
             sesion.costoservicio = servicios;
             sesion.montofinal = Math.round(montouso + servicios);
 
-            let comp = this.listacomp.buscarporid(sesion.compid);
-            if (comp != null) comp.estado = "disponible";
+            let comp=this.listacomp.buscarporid(sesion.compid);
+            if (comp!=null) comp.estado = "disponible";
 
             this.mostrarboleta(sesion);
         },
