@@ -1,33 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberCafeNeko:3</title>
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/panel.css">
-    <script src="../js/login.js" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
 </head>
 <body>
      <div class="login-container">
         <h1>CyberCafeNeko:3</h1>
         <p></p>
 
-        <form id="form-login">
-            <div class="campo">
-                <label for="usuario">Presentese :v</label>
-                <input type="text" id="usuario" name="usuario" placeholder="Presentate po loco" required>
-            </div>
+<form id="form-login"
+    x-data="{ Usuario: '', Contraseña: '', Aviso: '' }"
+    @submit.prevent="
+        if (Usuario === '' || Contraseña === '') {
+            Aviso = 'Oye yapo como no vai a poner nada.';
+        } else if (Usuario === 'encargado' && Contraseña === 'encargado') {
+            window.location.href = '../index.html';
+        } else if (Usuario === 'admin' && Contraseña === 'admin') {
+            window.location.href = 'inicio_admin.html';
+        } else {
+            Aviso = 'ta mala la custion ermano.';
+        }
+    "
+    novalidate
+>
+    <div class="campo">
+        <label for="usuario">Presentese :v</label>
+        <input type="text" id="usuario" name="usuario" placeholder="Presentate po loco" x-model="Usuario" required>
+    </div>
 
-            <div class="campo">
-                <label for="contrasena">Contra</label>
-                <input type="password" id="contrasena" name="contrasena" placeholder="Si... aqui." required>
-            </div>
+    <div class="campo">
+        <label for="contrasena">Contra</label>
+        <input type="password" id="contrasena" name="contrasena" placeholder="Si... aqui." x-model="Contraseña" required>
+    </div>
 
-            <p class="mensaje-error" id="mensaje-error"></p>
+    <p class="mensaje-error" id="mensaje-error" x-show="Aviso" x-text="Aviso"></p>
 
-            <button type="submit">Ingrese :3</button>
-        </form>
+    <button type="submit">Ingrese :3</button>
+</form>
     </div>
 </body>
 </html>

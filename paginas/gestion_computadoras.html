@@ -1,22 +1,91 @@
 <!DOCTYPE html>
 <html lang="esp">
 <head>
+    <link rel="manifest" href="../manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NekoComputadorasNya - Café Neko Maid Uwu Nya</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
-        body { background-color: #121212; color: #ffffff; font-family: Arial, sans-serif; margin: 0; padding: 20px; }
-        nav { background-color: #1e1e1e; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333; display: flex; gap: 20px; flex-wrap: wrap; }
-        nav a { color: #ff80bf; text-decoration: none; font-weight: bold; }
-        nav a:hover { text-decoration: underline; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #444; padding: 12px; text-align: left; }
-        th { background-color: #2a2a2a; color: #ff80bf; }
-        .btn { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; margin-right: 5px; }
-        .btn-liberar { background-color: #ff80bf; color: #121212; }
+        :root {
+            --bg-dark: #121212;
+            --panel-bg: #1e1e1e;
+            --neon-pink: #ff80bf;
+            --neon-green: #69f0ae;
+            --danger-red: #ff5252;
+            --border-color: #333;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        nav {
+            background-color: var(--panel-bg);
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 15px rgba(255, 128, 191, 0.1);
+        }
+        nav a {
+            color: var(--neon-pink);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px var(--neon-pink);
+        }
+        h1 { color: var(--neon-pink); margin-top: 0; }
+        p.subtitle { color: #aaa; margin-bottom: 25px; }
+        .contenedor-tabla {
+            background-color: var(--panel-bg);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 15px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #2a2a2a;
+            color: var(--neon-pink);
+            font-weight: 600;
+        }
+        tr:hover { background-color: #252525; }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-right: 5px;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-liberar { background-color: var(--neon-pink); color: var(--bg-dark); }
+        .btn-liberar:hover { box-shadow: 0 0 10px var(--neon-pink); }
         .btn-editar { background-color: #555; color: white; }
-        .estado-ocupado { color: #ff5252; font-weight: bold; }
-        .estado-disponible { color: #69f0ae; font-weight: bold; }
+        .btn-editar:hover { background-color: #777; }
+        .estado-ocupado { color: var(--danger-red); font-weight: bold; }
+        .estado-disponible { color: var(--neon-green); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -27,66 +96,64 @@
         <a href="../index.html">Neko volver UnU</a>
     </nav>
     <h1>Gestión de NekocomputadorasNya (Cyber)</h1>
-    <p>Monitoreo en tiempo real de los módulos del café.</p>
-    <table>
-        <thead>
-            <tr>
-                <th>ID del Nekoequipo</th>
-                <th>Nekoestado</th>
-                <th>Nekousuario Actual</th>
-                <th>Nekotiempo Restante</th>
-                <th>Nekoacciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>PC-01 (Zona NekoVIP)</td>
-                <td class="estado-ocupado">Ocupado</td>
-                <td>Santiago</td>
-                <td>00:45:00</td>
-                <td>
-                    <button class="btn btn-editar">Editar</button>
-                    <button class="btn btn-liberar" onclick="liberarPC('PC-01')">Liberar PC</button>
-                </td>
-            </tr>
-            <tr>
-                <td>PC-02</td>
-                <td class="estado-ocupado">Ocupado</td>
-                <td>Gabriel</td>
-                <td>01:20:00</td>
-                <td>
-                    <button class="btn btn-editar">Editar</button>
-                    <button class="btn btn-liberar" onclick="liberarPC('PC-02')">Liberar PC</button>
-                </td>
-            </tr>
-            <tr>
-                <td>PC-03</td>
-                <td class="estado-disponible">Disponible</td>
-                <td>-</td>
-                <td>-</td>
-                <td>
-                    <button class="btn btn-editar">Editar</button>
-                </td>
-            </tr>
-            <tr>
-                <td>PC-04</td>
-                <td class="estado-ocupado">Ocupado</td>
-                <td>Benjamín</td>
-                <td>00:15:00</td>
-                <td>
-                    <button class="btn btn-editar" onclick="editarPC('PC-01')">Editar</button>
-                    <button class="btn btn-liberar" onclick="liberarPC('PC-04')">Liberar PC</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <p class="subtitle">Monitoreo en tiempo real de los módulos del café.</p>
+    <div class="contenedor-tabla" x-data="{
+    computadoras: [
+        { id: 'PC-01 (Zona NekoVIP)', estado: 'Ocupado', usuario: 'Santiago', tiempo: '00:45:00', color: 'var(--danger-red)' },
+        { id: 'PC-02', estado: 'Ocupado', usuario: 'Gabriel', tiempo: '01:20:00', color: 'var(--danger-red)' },
+        { id: 'PC-03', estado: 'Disponible', usuario: '-', tiempo: '-', color: 'var(--neon-green)' },
+        { id: 'PC-04', estado: 'Ocupado', usuario: 'Benjamín', tiempo: '00:15:00', color: 'var(--danger-red)' }
+    ]
+}">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID del Nekoequipo</th>
+                    <th>Nekoestado</th>
+                    <th>Nekousuario Actual</th>
+                    <th>Nekotiempo Restante</th>
+                    <th>Nekoacciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <template x-for="pc in computadoras">
+                        <tr>
+                            <td x-text="pc.id"></td>
+                            <td :style="'color: ' + pc.color; 'font-weight: bold;'" x-text="pc.estado"></td>
+                            <td x-text="pc.usuario"></td>
+                            <td x-text="pc.tiempo"></td>
+                            <td>
+                                <button class="btn btn-editar"
+                                    @click="let nuevoTiempo = prompt('Editando configuración de ' + pc.id + '.\nIngresa el nuevo tiempo asignado:', pc.tiempo !== '-' ? pc.tiempo : '01:00:00');
+                                            if(nuevoTiempo) {
+                                                pc.tiempo = nuevoTiempo;
+                                                pc.estado = 'Ocupado';
+                                                pc.color = 'var(--danger-red)';
+                                                pc.usuario = pc.usuario === '-' ? 'NekoInvitado' : pc.usuario;
+                                            }">
+                                    Editar
+                                </button>
+                                <button x-show="pc.estado === 'Ocupado'" class="btn btn-liberar"
+                                    @click="if(confirm('¿Confirmas finalizar la nekosesión del equipo ' + pc.id + '?')) {
+                                                pc.estado = 'Disponible';
+                                                pc.color = 'var(--neon-green)';
+                                                pc.usuario = '-';
+                                                pc.tiempo = '-';
+                                            }">
+                                    Liberar PC
+                                </button>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+        </table>
+    </div>
     <script>
-        function liberarPC(id) {
-            alert("¿Confirmas finalizar la nekosesión del equipo " + id + "? Se cortará el acceso al nekousuario.");
-        }
-        function editarPC(id) {
-    prompt("Editando configuración de " + id + ".\nIngresa el nuevo tiempo asignado:", "01:00:00");
-        }
-    </script>
+    if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+    navigator.serviceWorker.register('../sw.js');
+    });
+    }
+</script>
 </body>
 </html>
