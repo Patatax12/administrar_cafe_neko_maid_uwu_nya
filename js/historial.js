@@ -57,77 +57,97 @@ function buscarcompporid(id){
     return null;
 }
 
-function cargarfiltros(){
-    let selcomp=document.getElementById("filtcomp");
-    for(let i=0;i<listacomp.length;i++){
-        let option=document.createElement("option");
-        option.value=listacomp[i].id;
-        option.text=listacomp[i].nombre;
-        selcomp.appendChild(option);
-    }
 
-    let selcli=document.getElementById("filtcl");
-    for(let i=0;i<listaclientes.length;i++){
-        let option=document.createElement("option");
-        option.value=listaclientes[i].id;
-        option.text=listaclientes[i].nombre;
-        selcli.appendChild(option);
+function valorordenar(sesion,campo){
+    if(campo=="cliente"){
+        return buscarcliporid(sesion.clienteid).nombre.toLowerCase();
     }
+    if(campo=="computador"){
+        return buscarcompporid(sesion.compid).nombre;
+    }
+    if(campo=="fecha"){
+
+        let partes=sesion.fecha.split("/");
+        return partes[2]+partes[1]+partes[0];
+    }
+    return sesion[campo];
 }
 
-function mostrarhist(lista){
-    let tbody=document.querySelector("#tablahist tbody");
-    tbody.innerHTML="";
-
-    for(let i=0;i<lista.length;i++){
-        let sesion=lista[i];
-        let cliente=buscarcliporid(sesion.clienteid);
-        let comp=buscarcompporid(sesion.compid);
-
-        let fila=document.createElement("tr");
-        fila.innerHTML="<td>"+cliente.nombre+"</td><td>"+comp.nombre+"</td><td>"+sesion.fecha+"</td><td>"+sesion.horainicio+"</td><td>"+sesion.horafin+"</td><td>"+sesion.duracionmin+"</td><td>$"+sesion.montofinal+"</td>";
-        tbody.appendChild(fila);
-    }
-}
-
-function aplicarfiltros(){
-    let fecha=document.getElementById("filtfech").value;
-    let compid=document.getElementById("filtcomp").value;
-    let clienteid=document.getElementById("filtcl").value;
-
-    let resultado=[];
-    for(let i=0;i<listasesiones.length;i++){
-        let sesion=listasesiones[i];
+document.addEventListener('alpine:init', () => {
+Alpine.data('historialApp', () => ({
+    listaclientes: listaclientes,
+    listacomp: listacomp,
+    listasesiones: listasesiones,
+    filtFecha: '',
+    filtComp: '',
+    filtCliente: '',
+    ordenCampo: '',
+    ordenAsc: true,
+    nombreCliente(id){
+        let cliente=buscarcliporid(id);
+        if(cliente==null) return '';
+        return cliente.nombre;
+    },
+    nombreComp(id){
+        let comp=buscarcompporid(id);
+        if(comp==null) return '';
+        return comp.nombre;
+    },
+    filtradas(){
+        let resultado=[];
+        let fechafiltro="";
+        if(this.filtFecha!=""){
+            let partes=this.filtFecha.split("-");
+            fechafiltro=partes[2]+"/"+partes[1]+"/"+partes[0];
+        }
+        for(let i=0;i<this.listasesiones.length;i++){
+            let sesion=this.listasesiones[i];
         let pasa=true;
-
-        if(fecha!=""&&sesion.fecha!=fecha){
-            pasa=false;
+            if(fechafiltro!=""&&sesion.fecha!=fechafiltro){
+                pasa=false;
+            }
+            if(this.filtComp!=""&&sesion.compid!=Number(this.filtComp)){
+                pasa=false;
+            }
+            if(this.filtCliente!=""&&sesion.clienteid!=Number(this.filtCliente)){
+                pasa=false;
+            }
+            if(pasa){
+                resultado.push(sesion);
+            }
         }
-        if(compid!=""&&sesion.compid!=Number(compid)){
-            pasa=false;
+        if(this.ordenCampo!=""){
+            let campo=this.ordenCampo;
+            let asc=this.ordenAsc;
+            resultado.sort(function(a,b){
+                let va=valorordenar(a,campo);
+                let vb=valorordenar(b,campo);
+                let r=0;
+                if(va>vb) r=1;
+                if(va<vb) r=-1;
+                if(!asc) r=-r;
+                return r;
+            });
         }
-        if(clienteid!=""&&sesion.clienteid!=Number(clienteid)){
-            pasa=false;
+        return resultado;
+    },
+    ordenarPor(campo){
+        if(this.ordenCampo==campo){
+            this.ordenAsc=!this.ordenAsc;
+        } else {
+            this.ordenCampo=campo;
+            this.ordenAsc=true;
         }
-
-        if(pasa){
-            resultado.push(sesion);
-        }
+    },
+    flecha(campo){
+        if(this.ordenCampo!=campo) return '';
+        if(this.ordenAsc) return ' ▲';
+        return ' ▼';
+    },
+    limpiar(){
+        this.filtFecha='';
+        this.filtComp='';
+        this.filtCliente='';
     }
-
-    mostrarhist(resultado);
-}
-
-cargarfiltros();
-mostrarhist(listasesiones);
-
-let btnfilt=document.getElementById("btnfilt");
-btnfilt.addEventListener("click",aplicarfiltros);
-
-let btnlimp=document.getElementById("btnlimp");
-btnlimp.addEventListener("click",function(){
-    document.getElementById("filtfech").value="";
-    document.getElementById("filtcomp").value="";
-    document.getElementById("filtcl").value="";
-    mostrarhist(listasesiones);
-});
+}));
+})

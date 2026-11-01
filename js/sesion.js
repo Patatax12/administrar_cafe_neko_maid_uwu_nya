@@ -18,6 +18,7 @@ class Sesion{
         this.id=id;
         this.clienteid=clienteid;
         this.compid=compid;
+        this.fecha=new Date().toLocaleDateString();
         this.horainicio=new Date().toLocaleTimeString();
         this.horafin=null;
         this.duracionmin=null;
@@ -35,17 +36,14 @@ class admcomp{
         }
     }
 
-    opc(){
-        let selHTML=document.getElementById("selcomp");
-        selHTML.innerHTML="";
+    disponibles(){
+        let resultado=[];
         for(let i=0;i<this.listpc.length;i++){
             if(this.listpc[i].estado=="disponible"){
-                let option=document.createElement("option");
-                option.value=this.listpc[i].id;
-                option.text="pc_"+this.listpc[i].id;
-                selHTML.appendChild(option);
+                resultado.push(this.listpc[i]);
             }
         }
+        return resultado;
     }
 
     buscarporid(id){
@@ -61,20 +59,9 @@ class admcomp{
 class admclientes{
     constructor(){
         this.listclientes=[];
-        this.listclientes.push(new Cliente(1,"six even"));
-        this.listclientes.push(new Cliente(2,"freddy fazbear"));
-        this.listclientes.push(new Cliente(3,"jhon zenin"));
-    }
-
-    opc(){
-        let selHTML=document.getElementById("selcli");
-        selHTML.innerHTML="";
-        for(let i=0;i<this.listclientes.length;i++){
-            let option=document.createElement("option");
-            option.value=this.listclientes[i].id;
-            option.text=this.listclientes[i].nombre;
-            selHTML.appendChild(option);
-        }
+        this.listclientes.push(new Cliente(1,"elpepe"));
+        this.listclientes.push(new Cliente(2,"etesech"));
+        this.listclientes.push(new Cliente(3,":3"));
     }
 
     buscarporid(id){
@@ -87,111 +74,112 @@ class admclientes{
     }
 }
 
-let listacomp=new admcomp();
-let listaclientes=new admclientes();
-let listasesiones=[];
-let siguienteidsesion=1;
+document.addEventListener('alpine:init', () => {
+    Alpine.data('sesionApp', () => ({
+        listaclientes: new admclientes(),
+        listacomp: new admcomp(),
+        listasesiones: [],
+        siguienteidsesion: 1,
+        clienteElegido: '',
+        compElegido: '',
+        error: '',
+        boletaTexto: '',
 
-listacomp.opc();
-listaclientes.opc();
+        activas() {
+            let resultado = [];
+            for (let i = 0; i < this.listasesiones.length; i++) {
+                if (this.listasesiones[i].horafin == null) {
+                    resultado.push(this.listasesiones[i]);
+                }
+            }
+                return resultado;
+        },
 
-function mostraractivas(){
-    let tbody=document.querySelector("#tablact tbody");
-    tbody.innerHTML="";
+        nombreCliente(id) {
+            let c = this.listaclientes.buscarporid(id);
+            if (c == null) return '';
+            return c.nombre;
+        },
 
-    for(let i=0;i<listasesiones.length;i++){
-        let sesion=listasesiones[i];
-        if(sesion.horafin==null){
-            let cliente=listaclientes.buscarporid(sesion.clienteid);
-            let comp=listacomp.buscarporid(sesion.compid);
+        iniciarsesion() {
+            this.error = '';
 
-            let fila=document.createElement("tr");
-            fila.innerHTML="<td>"+cliente.nombre+"</td><td>pc_"+comp.id+"</td><td>"+sesion.horainicio+"</td><td><button type='button' class='btnfin' data-id='"+sesion.id+"'>Finalizar</button></td>";
-            tbody.appendChild(fila);
+            if (this.clienteElegido==='') {
+                this.error='Debes seleccionar un cliente.';
+                return;
+            }
+            if (this.compElegido==='') {
+                this.error = 'Debes seleccionar un computador.';
+                return;
+            }
+
+            let comp = this.listacomp.buscarporid(Number(this.compElegido));
+            if (comp == null || comp.estado != "disponible") {
+                this.error = 'Ese computador ya no está disponible.';
+                return;
+            }
+
+            let nueva=new Sesion(
+                this.siguienteidsesion,
+                Number(this.clienteElegido),
+                comp.id,
+                comp.precioPorHora
+            );
+            this.siguienteidsesion++;
+            this.listasesiones.push(nueva);
+            comp.estado = "ocupado";
+
+            this.clienteElegido = '';
+            this.compElegido = '';
+        },
+
+        finalizarsesion(sesion) {
+            this.error = '';
+
+            if (!confirm('¿Finalizar la sesión de ' + this.nombreCliente(sesion.clienteid) + '?')) return;
+
+            let duracion = prompt("Duración de la sesión en minutos:", "60");
+            if (duracion == null) return;
+            duracion = Number(duracion);
+            if (isNaN(duracion) || duracion <= 0) {
+                this.error = 'La duración debe ser un número mayor a 0.';
+                return;
+            }
+
+            let servicios=prompt("Costo fijo por servicios (0 si no aplica):", "0");
+            if (servicios==null) return;
+            servicios=Number(servicios);
+            if (isNaN(servicios) || servicios < 0) {
+                this.error = 'El costo de servicios debe ser un número desde 0.';
+                return;
+            }
+
+            let montouso = (duracion / 60) * sesion.preciohora;
+
+            sesion.horafin = new Date().toLocaleTimeString();
+            sesion.duracionmin = duracion;
+            sesion.costoservicio = servicios;
+            sesion.montofinal = Math.round(montouso + servicios);
+
+            let comp=this.listacomp.buscarporid(sesion.compid);
+            if (comp!=null) comp.estado = "disponible";
+
+            this.mostrarboleta(sesion);
+        },
+
+        mostrarboleta(sesion) {
+            let costouso = Math.round((sesion.duracionmin / 60) * sesion.preciohora);
+
+            let texto = "Cliente: " + this.nombreCliente(sesion.clienteid) + "\n";
+            texto += "Fecha: " + sesion.fecha + "\n";
+            texto += "Duración: " + sesion.duracionmin + " minutos\n";
+            texto += "Precio por hora: $" + sesion.preciohora + "\n";
+            texto += "Costo uso computador: $" + costouso + "\n";
+            texto += "Costo servicios: $" + sesion.costoservicio + "\n";
+            texto += "------------------------\n";
+            texto += "TOTAL: $" + sesion.montofinal;
+
+            this.boletaTexto = texto;
         }
-    }
-
-    let botones=document.querySelectorAll(".btnfin");
-    for(let i=0;i<botones.length;i++){
-        botones[i].addEventListener("click",function(){
-            finalizarsesion(Number(this.dataset.id));
-        });
-    }
-}
-
-function iniciarsesion(evento){
-    evento.preventDefault();
-
-    let clienteid=Number(document.getElementById("selcli").value);
-    let compid=Number(document.getElementById("selcomp").value);
-
-    let comp=listacomp.buscarporid(compid);
-    if(comp==null||comp.estado!="disponible"){
-        alert("Ese computador ya no esta disponible.");
-        return;
-    }
-
-    let nueva=new Sesion(siguienteidsesion,clienteid,compid,comp.precioPorHora);
-    siguienteidsesion++;
-
-    listasesiones.push(nueva);
-    comp.estado="ocupado";
-
-    mostraractivas();
-    listacomp.opc();
-}
-
-function finalizarsesion(id){
-    let sesion=null;
-    for(let i=0;i<listasesiones.length;i++){
-        if(listasesiones[i].id==id){
-            sesion=listasesiones[i];
-        }
-    }
-    if(sesion==null)return;
-
-  
-    let duracionmin=Number(prompt("Duracion de la sesion en minutos:","60"));
-    if(isNaN(duracionmin)||duracionmin<=0)duracionmin=60;
-
-    let costoservicio=Number(prompt("Costo fijo por servicios (0 si no aplica):","0"));
-    if(isNaN(costoservicio))costoservicio=0;
-
-    let montouso=(duracionmin/60)*sesion.preciohora;
-    let montofinal=montouso+costoservicio;
-
-    sesion.horafin=new Date().toLocaleTimeString();
-    sesion.duracionmin=duracionmin;
-    sesion.costoservicio=costoservicio;
-    sesion.montofinal=Math.round(montofinal);
-
-    let comp=listacomp.buscarporid(sesion.compid);
-    if(comp!=null){
-        comp.estado="disponible";
-    }
-
-    mostrarboleta(sesion);
-    mostraractivas();
-    listacomp.opc();
-}
-
-function mostrarboleta(sesion){
-    let cliente=listaclientes.buscarporid(sesion.clienteid);
-    let costouso=Math.round((sesion.duracionmin/60)*sesion.preciohora);
-
-    let texto="Cliente: "+cliente.nombre+"\n";
-    texto=texto+"Duracion: "+sesion.duracionmin+" minutos\n";
-    texto=texto+"Precio por hora: $"+sesion.preciohora+"\n";
-    texto=texto+"Costo uso computador: $"+costouso+"\n";
-    texto=texto+"Costo servicios: $"+sesion.costoservicio+"\n";
-    texto=texto+"------------------------\n";
-    texto=texto+"TOTAL: $"+sesion.montofinal;
-
-    document.getElementById("titbol").style.display="block";
-    let boleta=document.getElementById("bol");
-    boleta.style.display="block";
-    boleta.textContent=texto;
-}
-
-let formses=document.getElementById("formses");
-formses.addEventListener("submit",iniciarsesion);
+    }));
+});
