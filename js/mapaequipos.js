@@ -38,18 +38,6 @@ document.addEventListener('alpine:init', () => {
             return this.computadores.filter(pc => pc.estado === this.filtro);
         },
 
-        clickEquipo(pc) {
-            if (pc.estado === 'disponible') {
-                this.equipoElegido = pc;
-                this.clienteElegido = '';
-                this.error = '';
-            } else if (pc.estado === 'ocupado') {
-                if (confirm('¿Finalizar la sesión de ' + pc.codigo + '?')) {
-                    pc.estado = 'disponible';
-                }
-            }
-        },
-
         iniciarSesion() {
             if (this.clienteElegido === '') {
                 this.error = 'Elige un cliente para iniciar la sesión.';

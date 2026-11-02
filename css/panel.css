@@ -121,13 +121,12 @@
 }
 
 
-/*----------------------------------------- Lo de arriba es lo del Inicio como encargado por si quieren cambiarle los colores
-asi que lo que hagan de aqui para abajo les va a cambiar la siguiente parte que es el mapa de los equipos*/
+/*----------------------------------------- Lo de arriba es lo del Inicio como encargado por si las moscas*/
 
 
 @media (max-width: 700px) {
     .layout {
-        flex-direction: column;
+        flex-direction: column;      
     }
 
     .sidebar {
@@ -213,4 +212,4 @@ asi que lo que hagan de aqui para abajo les va a cambiar la siguiente parte que 
 .tarjeta-equipo:has(.estado-ocupado):hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-
+/*el boy kisser*/

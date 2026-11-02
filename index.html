@@ -20,6 +20,7 @@
                 <a href="paginas/sesion.html">Registro de Sesión</a>
                 <a href="paginas/historial.html">Historial de NekoSesiones</a>
                 <a href="paginas/inicio_admin.html">Admin meow >:3</a>
+                <link rel="stylesheet" href="../css/boykisser.css">
             </nav>
             <a href="paginas/login.html" class="cerrar-sesion">Cerrar sesión</a>
         </aside>
@@ -50,7 +51,7 @@
                         <th @click="ordenar('computador')" style="cursor:pointer">Computador</th>
                         <th @click="ordenar('horaInicio')" style="cursor:pointer">Hora de inicio</th>
                         <th>Tiempo transcurrido</th>
-                        <th>Acción</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -60,7 +61,6 @@
                             <td x-text="s.computador"></td>
                             <td x-text="s.horaInicio"></td>
                             <td x-text="minutos(s) + ' min'"></td>
-                            <td><button class="boton-finalizar" @click="finalizar(s)">Finalizar</button></td>
                         </tr>
                     </template>
                 </tbody>
